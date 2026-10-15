@@ -1,12 +1,19 @@
 # Codex Agents MVP
 
-Phase 0 and Phase 1 scaffold only. The calculator deliberately retains its
-lower-bound bug. The three-agent demonstration has **not** been run.
-There are no third-party dependencies, installers, runners or services.
+The named three-agent workflow completed Phase 5B successfully:
+`MVP_NESTJS_UNINTERRUPTED_PASS`. TypeScript exited 0, Jest passed 32/32 tests,
+independent review returned APPROVE, and all 15 candidate hashes stayed identical.
+Earlier interrupted attempts remain UNVERIFIED. Phase 5C provides reusable
+instructions. The owner reports Phase 6B `MVP_PORTABILITY_PASS` in a separate
+Node.js project: 12/12 tests, two syntax checks, independent APPROVE and matching
+candidate hashes. That historical run was not independently observed in this
+packaging session; its session IDs and per-file digests were not supplied.
+There is no custom runner or orchestration framework. The NestJS example has
+existing dependencies; this workflow does not install them automatically.
 
 Observed tools during setup: `codex-cli 0.162.1`, Python `3.12.6`.
 
-## Start a later interactive demonstration
+## Use the workflow in this project
 
 From PowerShell, open this project folder and start the existing signed-in CLI:
 
@@ -19,31 +26,59 @@ Use a new session so project instructions and custom agents can be discovered.
 Choose the parent permission mode intentionally. Do not install, upgrade or
 change global configuration to make this scaffold work.
 
-Once the owner explicitly requests Phase 2, paste this single prompt (also in
-[workflows/develop.md](workflows/develop.md)):
+Submit one request using [workflows/develop.md](workflows/develop.md). Fill in:
 
 ```text
-Fix the lower-bound bug in examples/calculator/calculator.py.
-
-Please coordinate automatically using the three named project-local agents:
-1. quick_implementer — edit calculator.py only, no tests.
-2. code_validator — run exactly:
-   python -m unittest discover -s examples/calculator -p "test_*.py" -v
-3. code_reviewer — inspect the same source and tests and return an honest verdict.
-
-Run the three stages sequentially, without asking me to start any agent.
-Between stages, use the SHA-256 of calculator.py to ensure the candidate
-has not changed. Do not edit tests or unrelated files.
-Do not commit, push, install, upgrade, or retry.
-
-Final answer: implementation evidence, real test command and exit code,
-number of tests, review verdict/findings, matching candidate hashes, and
-PASS / FAILED / UNVERIFIED. If real named delegation is unavailable, stop.
+Follow workflows/develop.md and coordinate all three stages automatically.
+Task: <requested feature, bug fix, or refactoring>
+Project path: <absolute project root>
+Scope: <permitted source and test paths>
+Acceptance criteria: <expected behavior and boundaries>
+Validation commands: <existing commands with cwd, or discover from project config>
+Restrictions: <forbidden operations and operations requiring separate approval>
 ```
 
-## Baseline tests
+Root selects `quick_implementer`, then `code_validator`, then `code_reviewer`
+through actual `agent_type` selections, waiting between stages. Final evidence
+includes sessions, changed files, commands/exits/test counts, review findings,
+and candidate path/hash comparisons. No automatic retries, installs or Git writes.
 
-The exact test command from the project root is:
+## Use in another project
+
+Use [SETUP.md](SETUP.md) and the merge-safe manual adoption map for
+[templates/development](templates/development/). The template contains only
+project instructions, the workflow and three agent definitions; it is not an
+installer. Phase 7 packages the existing architecture without a custom coordinator.
+
+With separate authorization for that target project, merge the relevant guidance
+from AGENTS.md, workflows/develop.md and the three `.codex/agents/*.toml` files
+into its project-local setup. Preserve existing instructions and role definitions;
+resolve conflicts before writing. Do not copy demos, the historical plan, global
+configuration or credentials. This task does not perform adoption in another tree.
+
+Start a fresh supported Codex session in that project, confirm its effective write
+permissions and all three named role selections, then submit the filled request.
+The workflow file is a prompt template, not automatically loaded configuration:
+explicitly instruct Codex to read it. Role availability observed here does not
+guarantee another host exposes the same capability. Stop UNVERIFIED if it does not.
+
+For Node.js, NestJS and React, inspect existing package.json scripts and test/build
+configuration; preserve the project's package manager and installed toolchain.
+For Python, inspect pyproject.toml, test configuration and established docs.
+Do not assume a particular runner or invent commands. Clarify required commands
+or scope if they cannot be established safely. Run only installed, authorized
+checks; missing dependencies require stopping rather than automatic installation.
+
+Use Python standard-library hashlib for deterministic candidate inventories,
+including source/tests/configuration. Declare dependency/generated-artifact
+exclusions and compare both path sets and hashes at each stage. Do not reuse the
+NestJS 15-file manifest for an unrelated project. On Windows use UTF-8 reads and
+`rtk proxy python -X utf8` to avoid console encoding failures. Never pass a
+PowerShell cmdlet directly to `rtk proxy`; use a supported shell executable.
+
+## Historical Phase 1 baseline tests
+
+The original baseline command from the project root was:
 
 ```powershell
 python -m unittest discover -s examples/calculator -p "test_*.py" -v
@@ -53,7 +88,8 @@ Setup executed that command once via a Python subprocess, with the child-only
 environment variable `PYTHONDONTWRITEBYTECODE=1` to avoid extra cache files.
 Observed result: **4 tests, 3 passed, 1 failure, process exit code 1**.
 `test_below_lower` failed with `AssertionError: -5 != 0`; the other three passed.
-This expected failure establishes the unrepaired fixture, not a failed setup.
+This expected failure established the original fixture, not a failed setup.
+Phase 2 subsequently repaired it; this historical result is not a current rerun.
 All three TOMLs parse with Python's standard-library `tomllib`, and the test
 source contains exactly four test methods.
 
@@ -70,26 +106,26 @@ The installed CLI's normal help and `features list` were inspected without
 running a model; `multi_agent` is reported **stable / true**.
 The role files omit model and permission overrides and inherit the parent.
 
-**BLOCKED_ROLE_SELECTION in the current setup interface:** its exposed
+**Historical setup limitation (later resolved here):** the setup interface's
 `collaboration.spawn_agent` schema has no `agent_type` or equivalent named-role
 selector. A task name is not evidence of loading a custom agent. No roles were
-spawned. CLI version and feature flags do not prove that these new files load
+spawned during setup. CLI version and feature flags do not prove that these files load
 or that a future interactive session exposes named selection. The minimal
 format agrees with current documentation; loading and named selection on this
-installed release remain unverified until a separately authorized session.
+installed release were unverified at setup. Subsequent named-role demonstrations,
+including Phase 5B, established actual selection and execution in this session.
 Stop with `UNVERIFIED` if the real named roles cannot be selected; do not
 substitute generic children, change global settings or build an adapter.
 
 Validator/reviewer instructions prohibit edits but do not create separate OS
 sandboxes. Prompts alone do not guarantee success or independence.
 
-For a later demonstration, inspect three distinguishable named agent sessions,
-the one-file calculator change, the validator's actual command/output/count/exit
-code, and the reviewer's `APPROVE` or `REQUEST_CHANGES` findings. Compare source
-SHA-256 before and after validation and review. Only report `MVP_DEMO_PASS` after
-four tests pass with exit 0, an approving independent review, matching candidate
-hashes and no unrelated changes. Real rejection means `FAILED`; incomplete
-evidence means `UNVERIFIED`. Do not retry automatically.
+For each new development task, require three distinguishable named sessions,
+actual validation commands/output/counts/exits, an independent APPROVE and
+unchanged candidate paths/hashes after validation and review. Real rejection
+means FAILED; incomplete evidence means UNVERIFIED. Do not retry automatically.
+Windows outer-shell stabilization (Phase 5A) remains unresolved; process ancestry
+is diagnostic, not a prerequisite for accepting development results.
 
 ## Section 4A migration and preservation report
 

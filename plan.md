@@ -1,15 +1,15 @@
 # Codex Agents MVP — Implementation Plan
 
-**Status (2026-10-14):** **MVP FUNCTIONAL — WORKFLOW STABILIZATION PENDING**  
+**Status (2026-10-15):** **PHASE 5B PASS — PHASE 5C COMPLETE — PHASE 6B OWNER-REPORTED PASS — PHASE 7 PACKAGING AUTHORED**  
 **Target directory:** `C:\Develop\agents\codex_agents_mvp`  
 **Runtime observed during setup:** `codex-cli 0.162.1`, Python `3.12.6`; interactive Codex CLI on Windows 11  
 **Goal:** One user request -> one implementer -> one independent test agent -> one independent review agent -> an honest result.
 
-> **Status update scope:** This document retains the original MVP setup specification and acceptance criteria. The progress entries below reflect the execution results **reported by the project owner**, not a fresh independent inspection of the Windows workspace or agent transcripts. Instructions in Sections 4–6 and 10 describe the *original* setup/demonstration and are **historical, not instructions to repeat completed work**.
+> **Status update scope:** This document retains the original MVP setup specification and acceptance criteria. Earlier progress entries reflect results reported by the project owner; Phase 5B below records actual named-agent evidence from this session. Phase 5C is a separately authorized documentation/configuration recovery, without subagents or development demonstrations. Sections 4–6 and 10 describe the original setup/demonstration and are historical, not instructions to repeat completed work.
 
-## Current project status (as of 2026-10-14)
+## Current project status (as of 2026-10-15)
 
-**Outcome:** The Python calculator completed an uninterrupted named three-agent demonstration. TypeScript and NestJS candidates achieved **recovered combined PASS** across separate stages; their original interrupted executions remain **UNVERIFIED**. An uninterrupted NestJS three-agent demonstration is still **NOT DEMONSTRATED**. Do not relabel a recovery as an uninterrupted run.
+**Outcome:** Python and the separately authorized Phase 5B NestJS change completed uninterrupted named three-agent demonstrations. Phase 5B is **PASS — MVP_NESTJS_UNINTERRUPTED_PASS**. Earlier TypeScript/NestJS interruptions and the initial Phase 5B preflight remain **UNVERIFIED**; recovered results retain their separate status. Phase 5C generalizes the successful workflow as project-local instructions, without claiming cross-project execution or resolved Windows shell selection.
 
 | ID | Milestone | Status | Evidence / limitation |
 | --- | --- | --- | --- |
@@ -22,13 +22,16 @@
 | Phase 4 | NestJS initial automatic attempt | **UNVERIFIED (historical)** | Named implementer completed; named validator could not launch WindowsApps PowerShell; review did not run in that attempt |
 | Phase 4A | NestJS manual validation and independent AI review | **PASS — PARTIAL RECOVERY** | `tsc` exit 0, Jest 28/28 exit 0 from a separate terminal; named reviewer APPROVE; all 15 candidate files unchanged |
 | Phase 4B | NestJS named-validator recovery | **PASS — RECOVERED** | Named `code_validator` ran typecheck exit 0 and Jest 28/28 exit 0; all 15 candidate hashes unchanged |
-| Phase 5A | Stabilize supported Windows shell selection | **PENDING** | Explicit Windows PowerShell worked in reviewer recovery, but WindowsApps `pwsh.exe` was still selected in other attempts |
-| Phase 5B | Uninterrupted three-agent NestJS run on a *new* small change | **PENDING** | No uninterrupted NestJS success demonstrated; do not recycle the recovered candidate as proof |
-| Phase 5C | Generalize workflow for ordinary projects | **PENDING** | Only after 5A/5B and a scoped approval |
+| Phase 5A | Stabilize supported Windows shell selection | **UNVERIFIED — unresolved** | Outer launcher behavior remains unresolved; ancestry is diagnostic, not a development acceptance condition |
+| Phase 5B | Uninterrupted three-agent NestJS run on a new small change | **PASS — MVP_NESTJS_UNINTERRUPTED_PASS** | GET /tasks/count; three actual named stages; tsc exit 0, Jest 32/32 exit 0, APPROVE; all 15 hashes stable |
+| Phase 5C initial attempt | Generic workflow documentation | **UNVERIFIED (historical)** | First patch rejected delete/add of the same path; no files changed; no retry |
+| Phase 5C recovery | Reusable workflow documentation/configuration | **COMPLETE — documentation/configuration** | Six documentation checks passed; valid TOML, unchanged role names and application files; no subagents or cross-project demonstration |
+| Phase 6B | Separate Node.js project portability | **OWNER-REPORTED PASS — MVP_PORTABILITY_PASS** | Rename feature; 12/12 tests and two syntax checks exit 0; independent APPROVE; matching hashes; historical session IDs/digests not supplied |
+| Phase 7 | Manual adoption template and setup guide | **AUTHORED — validation/review pending** | Project-local template, merge-safe SETUP.md and Windows guidance; no new runner or external-project changes |
 
 **Status meanings:** `PASS` = required positive evidence observed for that scoped run; `PASS — RECOVERED` = combined evidence from separately authorized stages, **not** an uninterrupted run; `UNVERIFIED` = mandatory evidence missing or stage could not run; `FAILED` = actual validation/review rejection or unauthorized mutation; `PENDING` = not undertaken. An earlier `UNVERIFIED` result remains intact after any later recovery.
 
-**Next actionable task:** **Phase 5A — Windows shell-selection stabilization**, limited to one supported, read-only diagnostic/compatibility check under separate authorization. Do **not** repeat implementation, alter global security configuration, auto-retry, or treat a prompt's `shell` preference as proof of the actual launched executable.
+**Next actionable task:** Complete independent verification/review of the authorized Phase 7 packaging candidate. Adoption/development in another project or further Phase 5A diagnostics requires its own authorized scope. Do not repeat demonstrations, alter global configuration or treat requested shell selection as proof of the outer launcher.
 
 ## 1. Mission
 
@@ -418,32 +421,83 @@ Notes: <important limitations only>
 - **Phase 4A manual checks and reviewer:** An external terminal ran `tsc.cmd --noEmit -p tsconfig.json` with **exit 0** and Jest with **1 suite, 28 passed, 0 failed, exit 0**. The named `/root/nestjs_reviewer` (`code_reviewer`) inspected source/tests/configuration and returned **APPROVE** with no source/test findings. Optional lockfile metadata inspection failed with a PowerShell JSON-parsing error and was not retried; do not claim this optional inspection succeeded.
 - **Phase 4B named-validator recovery:** `/root/nestjs_validator_recovery`, real `code_validator`, executed the typecheck (**exit 0**) and Jest (**1 suite, 28 passed, 0 failed, 0 skipped, exit 0**). All **15 recorded candidate SHA-256 hashes** matched across implementation, manual validation, review and validator recovery. The exact 15 digest values are in the project's recorded evidence; **do not invent or reproduce absent values here**.
 - **Dependencies:** Installation was separately authorized. npm audit reported **0 production findings; development dependency tree: 29 high and 5 moderate**. These are not a NestJS test failure; they require a separate dependency review before production adoption. Do not run `npm audit fix` without permission.
-- **Conclusion:** **RECOVERED PASS** for implementation, actual named-agent validation, independent AI review and candidate integrity. The original interrupted workflow remains **UNVERIFIED**; **uninterrupted automatic NestJS execution has not been demonstrated**.
+- **Conclusion at Phase 4:** **RECOVERED PASS** for implementation, actual named-agent validation, independent AI review and candidate integrity. The original interrupted workflow remains **UNVERIFIED**; uninterrupted NestJS execution had not yet been demonstrated at that point. Phase 5B later established it on a new feature.
+
+### Phase 5B — New uninterrupted NestJS feature (**PASS**)
+
+- **Feature:** GET /tasks/count returns `{ "count": number }`. Only the task controller, service and HTTP test file changed; four tests were added.
+- **Actual sessions, sequential:** `/root/phase5b_implementer` (`quick_implementer`), `/root/phase5b_validator` (`code_validator`), `/root/phase5b_reviewer` (`code_reviewer`). Each finished before the next started.
+- **Validation:** installed TypeScript `--noEmit -p tsconfig.json` exited **0**; installed Jest `--config jest.config.cjs --runInBand --runTestsByPath test/tasks.e2e-spec.ts` exited **0**: **1 suite, 32 passed, 0 failed, 0 skipped**. Both ran once using RTK/PowerShell from the example directory. No checks were rerun for this documentation recovery.
+- **Independent review:** APPROVE, no findings. Root's Python hashlib checks confirmed the full **15-file path set and all hashes** identical after implementation, validation and review. Checked files outside the example were unchanged. No retry, recovery, installation or manual stage intervention occurred.
+- **Result:** **MVP_NESTJS_UNINTERRUPTED_PASS**. The earlier Get-FileHash preflight interruption remains UNVERIFIED: no agents started and no source changes. The later separately authorized read-only fingerprint check passed 15/15 historical baseline comparisons before this feature attempt.
+
+### Phase 5C — Documentation recovery
+
+The initial Phase 5C attempt remains **UNVERIFIED**: its first patch used unsupported delete/add operations on the same path; no files changed. A prior plan-only update also stopped UNVERIFIED on console encoding, without edits. This new authorization permits root to update existing files directly, one at a time, without agents or development demonstrations. Completion requires documentation checks, valid role TOML with unchanged names, and unchanged application source/tests. No external-project runtime claim follows from these checks.
+
+**Recovery result: COMPLETE — documentation/configuration only.** Six read-only checks passed (exit 0): UTF-8 candidate files, all three role TOMLs/names/fields, required request inputs, generic workflow portability, Markdown fences and local links. SHA-256 inventory comparison with the preserved unchanged-attempt baseline found only the six intended documentation/configuration edits and no application source/test or other unexpected changes. Manual document inspection confirmed sequential implementation, real validation, independent review and candidate path/hash consistency. No subagents, development demonstrations, installs, dependency changes, permissions changes, commits or pushes were performed.
 
 ### What is established — and what is not
 
-- **Established:** Interactive Codex exposed real named `agent_type` selection; Python demonstrated one uninterrupted sequential three-agent workflow; TypeScript and NestJS passed the recovered combined evidence criteria.
+- **Established:** Interactive Codex exposed real named `agent_type` selection; Python and Phase 5B NestJS demonstrated uninterrupted sequential three-agent workflows; earlier TypeScript/NestJS recovered results retain their separate evidence. The owner additionally reports uninterrupted Node.js portability in Phase 6B, with the historical evidence limitations recorded below.
 - **Not established:** Reliability across repeated uninterrupted tasks, universal Windows shell compatibility, independent OS sandboxes, full enforcement of natural-language role instructions, guaranteed CI-grade isolation, or original V2 T1 compliance. The **22 strict native T1 requirements remain blocked/open in the original project**.
 - **No automatic expansion:** Do not add another coordinator, parser, installer, global configuration workaround or SDK migration simply because a stage failed.
 
-## 9A. Phase 5 — Stabilize and generalize (**PENDING; next workstream**)
+## 9A. Phase 5 — Stabilize and generalize (**5B PASS; 5A unresolved; 5C recovery**)
 
 - [ ] **5A — Windows shell-selection stabilization.** Investigate a supported, repeatable way for the execution tool to launch the intended existing shell. Distinguish the requested shell parameter from the *actual executable* observed in traces. WindowsApps `pwsh.exe` has failed with `CreateProcessAsUserW` error 5; explicit `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` worked in a reviewer recovery but was not honored in every operation. Start with **one separately authorized, bounded, read-only compatibility check**, not an automatic retry of an application task. Do not disable security features, modify global configuration or claim the specific Windows policy root cause is known.
-- [ ] **5B — One uninterrupted three-agent NestJS change.** After 5A is established and the owner authorizes a new development run, make a small *new* feature (for example, optional `GET /tasks?completed=true` filtering, if approved). Require one initial request, three actual named agent sessions running sequentially without manual recovery, an actual `tsc` exit 0, Jest exit 0 with observed counts, an independent reviewer `APPROVE`, matching candidate hashes, and no unrelated changes. Keep prior recovered results intact.
-- [ ] **5C — Reusable real-project workflow.** Only after an uninterrupted realistic success, generalize `workflows/develop.md` to accept a task and exact validation commands while keeping no silent retries/installs/commits, and define a lightweight results template. Apply to real projects only with separately approved scope.
+- [x] **5B — One uninterrupted three-agent NestJS change.** Completed under separate authorization on GET /tasks/count, with real named stages, typecheck/Jest success, independent APPROVE and matching candidate hashes. Prior interrupted attempts remain UNVERIFIED. The owner-approved correction made process ancestry diagnostic rather than a prerequisite.
+- [x] **5C — Reusable real-project workflow.** Documentation/configuration COMPLETE after six passing checks and unchanged application-file hashes. The generic template accepts task, project path, scope, acceptance criteria, validation commands and restrictions, with sequential named roles and a lightweight evidence report. Apply elsewhere only with separately approved scope; Phase 6B subsequently supplied owner-reported Node.js portability evidence.
 - [ ] **Separate backlog — dependency audit.** Review the NestJS development-dependency findings; no automatic upgrades or dependency fixes. This is not a prerequisite for recording the historical 28 passing tests.
 
-**Phase 5 acceptance:** Repeatable, explicitly selected shell execution; one **uninterrupted** new-feature NestJS workflow with named implementer, validator and reviewer; positive test/review/hashing evidence; no unexpected edits or unapproved configuration changes. If evidence is missing, report `UNVERIFIED`, not `PASS`.
+**Phase 5 acceptance:** The original overall shell-repeatability objective remains unresolved under 5A; do not declare all of Phase 5 complete. Phase 5B's uninterrupted named-agent/check/review/hash criteria passed under the corrected diagnostic boundary. Phase 5C completion concerns reusable documentation/configuration, not demonstrated compatibility on every host or project. Missing required evidence remains UNVERIFIED.
 
-**Next task NOW:** Plan and perform **only 5A** after separate authorization. Do not launch further implementation, validation or review merely because this status document was updated.
+**Next task NOW:** Phase 7 packaging is authored for independent validation and review. Do not launch cross-project adoption, diagnostics or demonstrations merely because this plan was updated.
 
 **Stop rule:** If direct Codex coordination repeatedly fails on a supported execution path, record the limitation; do not rebuild a native adapter as the immediate fix. Evaluate alternatives separately if necessary.
+
+## 9B. Phase 6B — Separate-project portability (owner-reported)
+
+The owner reports **MVP_PORTABILITY_PASS** in `C:\Develop\agents\phase6a`:
+`quick_implementer` implemented `rename(id, title)` and five new tests;
+`code_validator` ran two syntax checks (both exit 0) and the unit tests
+(12/12 passed, exit 0); `code_reviewer` independently returned APPROVE, no
+findings. Only `src/task-store.js` and `test/task-store.test.js` changed;
+SHA-256 candidate hashes matched across stages, with no retries or recovery.
+
+| Historical evidence | Record |
+| --- | --- |
+| Actual implementer / validator / reviewer session IDs | **NOT RECORDED** — not supplied in the owner report |
+| Historical per-file SHA-256 values | **NOT RECORDED** — matching values reported, digests not supplied |
+| Observation in this packaging session | Owner report only; no target-project reread or historical transcript verification |
+
+The original interrupted attempt and earlier readiness/setup failures retain
+their **UNVERIFIED / SETUP_REQUIRED** outcomes. They are not part of the later
+reported uninterrupted pass. This supports practical feasibility in an independent
+Node.js project; it does not establish reliability across repeated runs or all
+languages/frameworks. Phase 5B PASS, Phase 5C COMPLETE, the original Phase 5C
+UNVERIFIED attempt and unresolved Phase 5A remain unchanged.
+
+## 9C. Phase 7 — Packaging and real-project readiness
+
+**AUTHORED — independent validation/review pending.** `templates/development/`
+contains reusable AGENTS.md, workflows/develop.md and the three unchanged named
+agent definitions. SETUP.md explains manual, merge-safe adoption, target-session
+readiness, separate task authorization and existing Windows execution limitations.
+No new installer, coordinator, SDK, database, background service or demonstration
+is introduced. Template checks and candidate integrity remain for the distinct
+validator/reviewer; this entry does not claim they already passed.
+
+Future use should start on a separately authorized disposable copy or an isolated
+branch created by the developer. Keep a simple manual record of attempted tasks,
+PASS/FAILED/UNVERIFIED outcomes, failures, manual interventions and test results
+to assess reliability; do not build a telemetry system as part of packaging.
 
 ## 10. Historical handoff — Phase 0/1 (**ALREADY COMPLETED; DO NOT RE-RUN**)
 
 > Read `plan.md`, including **Section 4A (exact migration map and source-preservation check)**. Implement **Phase 0 and Phase 1 only** in `C:\Develop\agents\codex_agents_mvp`. Create only the files listed in Section 3. Inspect the old `codex_agents` project read-only and reuse only relevant agent instructions. Keep agent definitions minimal and compatible with this installed Codex CLI. Do not modify the old project, global Codex config, credentials or any external system. Create the calculator's deliberately failing baseline and execute the four local baseline tests once if Python is already available. **Do not fix the calculator or run the three-agent demonstration yet.** Report the created files, a source-to-destination migration manifest (`FOUND/NOT_FOUND`, action taken), the old-tree preservation result, baseline test result and any role-configuration uncertainty. Stop.
 
-**Historical outcome:** The scaffold and Phase 2 Python demonstration have already been completed; the quoted prompt above is retained for traceability, not as a current instruction. Continue at **Phase 5A**, subject to explicit owner authorization, and preserve all earlier PASS / UNVERIFIED distinctions.
+**Historical outcome:** The scaffold and Phase 2 Python demonstration have already been completed; the quoted prompt is retained for traceability, not as a current instruction. Follow the current status above and explicit owner authorization, preserving all earlier PASS / UNVERIFIED distinctions.
 
 ## References
 
